@@ -1,4 +1,6 @@
 #include <QDebug>
+#include <QDir>
+#include <QCoreApplication>
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlRecord>
 #include "mainwindow.h"
@@ -8,7 +10,6 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     db = QSqlDatabase::addDatabase("QSQLITE");
-
     db.setDatabaseName("L:/Projects/Qt_test/Qt_db.db");
     db.setUserName("root");
 
@@ -40,14 +41,8 @@ void MainWindow::on_pushButton_2_clicked() {
     ui->tableView->setModel(model);
 }
 
-void MainWindow::on_pushButton_4_clicked() {
-    model = new QSqlTableModel(this, db);
-    model -> setTable("");
-    model->select();
-    ui->tableView->setModel(model);
-}
-
 void MainWindow::on_pushButton_clicked() {
+
 }
 
 
@@ -73,6 +68,7 @@ void MainWindow::getDataFromLinedit() {
     } else if (ui->lineEdit->text().at(0) == '2') {
         MainWindow::on_pushButton_2_clicked();
     }
+    ui->lineEdit->clear();
 }
 
 
